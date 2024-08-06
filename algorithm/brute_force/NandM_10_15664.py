@@ -8,7 +8,13 @@ def backtracking():
 
   for i in range(n):
     if i not in array:
-      array.append(i)
+      if len(array) > 0:
+        if i >= array[-1]:
+          array.append(i)
+        else:
+          continue
+      else:
+        array.append(i)
       backtracking()
       array.pop()
 
@@ -20,6 +26,7 @@ array = []
 answer = []
 
 backtracking()
+
 tuple_answer = [tuple(i) for i in answer]
 set_answer = set(tuple_answer)
 list_answer = [i for i in set_answer]

@@ -2,12 +2,10 @@ import sys
 
 def backtracking():
   if len(array) == m:
-    temp = [list[i] for i in array]
-    answer.append(temp)
+    answer.append(array[:])
     return
 
-  for i in range(n):
-    if i not in array:
+  for i in list:
       array.append(i)
       backtracking()
       array.pop()
@@ -24,6 +22,5 @@ tuple_answer = [tuple(i) for i in answer]
 set_answer = set(tuple_answer)
 list_answer = [i for i in set_answer]
 list_answer.sort()
-
 for i in list_answer:
   print(' '.join(map(str, i)))
