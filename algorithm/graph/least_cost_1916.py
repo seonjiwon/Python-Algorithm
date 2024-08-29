@@ -1,38 +1,39 @@
 import sys
-from collections import deque
+import heapq
 
-def dfs(start, end, temp_cost):
-  global cost
+def dijkstra(start, end):
+  distance_list = [float('inf')] * (N+1)
+  distance_list[start] = 0
+  q = [(0, start)]
 
-  if start == end:
-    # print(cost, temp_cost)
-    cost = min(cost, temp_cost)
-    return
+  while q:
+    current_distance, current_node = heapq.heappop(q)
+    if current_distance > distance_list[current_node]:
+      continue
+    for target, weight in graph[current_node]:
+      temp_weight = weight + current_distance
+      if distance_list[target] > temp_weight:
+        distance_list[target] = temp_weight
+        heapq.heappush(q, (temp_weight, target))
 
-  for i in range(len(link[start])):
-    if not visited[link[start][i]]:
-      # print(f"start = {start}, arrive = {link[start][i]}, cost = {weight[start][link[start][i]]}, sum_cost = {temp_cost}")
-      visited[link[start][i]] = 1
-      dfs(link[start][i], end, temp_cost + weight[start][link[start][i]])
-      visited[link[start][i]] = 0
+  return distance_list[end]
 
 
 
 N = int(sys.stdin.readline())
 M = int(sys.stdin.readline())
-link = [[] for _ in range(N + 1)]
-weight = [[0] * (N+1) for _ in range(N+1)]
 
-for _ in range(M):
-  u, v, w = map(int, sys.stdin.readline().strip().split())
-  link[u].append(v)
-  weight[u][v] = w
+# 그래프 초기화
+graph = [[] for _ in range(N + 1)]
 
+# 버스 정보 입력 처리
+for i in range(M):
+  A, B, C = map(int, sys.stdin.readline().strip().split())
+  graph[A].append((B, C))
 
+# 출발점과 도착점 입력 처리
 start, end = map(int, sys.stdin.readline().strip().split())
 
-visited = [0] * (N+1)
-visited[start] = 1
-cost = float('inf')
-dfs(start, end, 0)
-print(cost)
+# 다익스트라 알고리즘 수행
+result = dijkstra(start, end)
+print(result)
