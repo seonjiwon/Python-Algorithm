@@ -28,10 +28,8 @@ for _ in range(N-1):
   tree[u].append((v, w))
   tree[v].append((u, w))
 
-#임의의 노드 에서 가장 먼 노드를 찾음
 node_a, _ = bfs(1)
 
-#node_a에서 가장 먼 노드를 찾음
 _, max_distance = bfs(node_a)
 
 print(max_distance)
