@@ -9,6 +9,7 @@ def biggest_ascending_number(n, list):
     for j in range(i):
       if(list[i] > list[i-j-1]):
         dp[i] = max(dp[i], dp[i-j-1] + list[i])
+  print(dp)
   return max(dp)
 
 n = int(sys.stdin.readline().strip())

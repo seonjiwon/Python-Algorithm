@@ -2,21 +2,20 @@ import sys
 import heapq
 
 def dijkstra(start, end):
-  distance_list = [float('inf')] * (N+1)
-  distance_list[start] = 0
+  distance = [float('inf')] * (N+1)
+  distance[start] = 0
   q = [(0, start)]
 
   while q:
-    distance, node = heapq.heappop(q)
-    if distance > distance_list[node]:
+    dist, u = heapq.heappop(q)
+    if dist > distance[u]:
       continue
-    for target, weight, in load[node]:
-      temp_weight = distance + weight
-      if distance_list[target] > temp_weight:
-        distance_list[target] = temp_weight
-        heapq.heappush(q, (temp_weight, target))
+    for v, w in load[u]:
+      if distance[v] > dist + w:
+        distance[v] = dist + w
+        heapq.heappush(q, (dist + w, v))
 
-  return distance_list[end]
+  return distance[end]
 
 N, M, X = map(int, sys.stdin.readline().strip().split())
 load = [[] for _ in range(N+1)]
