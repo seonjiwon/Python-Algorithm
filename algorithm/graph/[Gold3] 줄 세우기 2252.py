@@ -1,3 +1,7 @@
+"""
+위상 정렬 문제
+log(V+E)
+"""
 import sys
 from collections import deque
 input = sys.stdin.readline
