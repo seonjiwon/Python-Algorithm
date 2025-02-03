@@ -39,7 +39,6 @@ max_safe_area = 0
 
 for walls in itertools.combinations(empty_spaces, 3):
   new_lab = copy.deepcopy(lab)
-
   for x, y in walls:
     new_lab[x][y] = 1
 
