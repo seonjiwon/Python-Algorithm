@@ -2,17 +2,16 @@ import sys
 input = sys.stdin.readline
 
 def solution():
-    dp = [float('inf')] * (k+1)
+    dp = [0] * (k+1)
+
+    dp[0] = 1
 
     for coin in coins:
-        if coin > k:
-            continue
-        dp[coin] = 1
         for c in range(coin, k+1):
-            dp[c] = min(dp[c], dp[c - coin] + 1)
+            dp[c] += dp[c - coin]
 
-
-    return dp[k] if dp[k] != float('inf') else -1
+    # print(dp)
+    return dp[k]
 
 n, k = map(int, input().strip().split())
 coins = []
